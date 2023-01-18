@@ -24,10 +24,12 @@ class BaseModel:
 
     def to_dict(self):
         """Return a dict representation of the BaseModel"""
-        self.__dict__['created_at'] = datetime.isoformat(self.created_at )
-        self.__dict__['updated_at'] = datetime.isoformat(self.updated_at)
-        self.__dict__['__class__'] = self.__class__.__name__
-        return self.__dict__
+        
+        formated_dict = self.__dict__.copy()
+        formated_dict['created_at'] = formated_dict['created_at'].isoformat()
+        formated_dict['updated_at'] = formated_dict['updated_at'].isoformat()
+        formated_dict['__class__'] = self.__class__.__name__
+        return formated_dict
 
 
         
