@@ -10,17 +10,17 @@ git clone https://github.com/wubeshetA/alu-AirBnb_clone.git
 ```shell
 git checkout -b feature-name
 ```
-for example if you want to add tests for the BaseModel class you can name your branch as `BaseModel-tests`, 
+for example if you want to add the BaseModel class  in the models direcrory you can name your branch as `BaseModel`, 
 ```shell
-git checkout -b BaseModel-tests
+git checkout -b BaseModel
 ```
 
 - Make the chages you would like to make on the branch you created earlier
 - Ensure the code runs on your local machine
 - Commit your changes
-- Push your branch as follow (in this case assuming the branch name is **BaseModel-tests**)
+- Push your branch as follow (in this case assuming the branch name is **BaseModel**)
 ```bash
-git push origin BaseModel-tests
+git push origin BaseModel
 ```
 
 - After you have pushed your branch, please create a pull request on github for review and merging to the **main** branch.
