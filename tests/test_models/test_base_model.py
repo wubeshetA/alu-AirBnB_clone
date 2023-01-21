@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 import unittest
-import sys
 import time
-import os
-
-sys.path.append(os.getcwd())
 from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
@@ -42,7 +38,7 @@ class TestBaseModel(unittest.TestCase):
         class_name = self.testModel.__class__.__name__
         id = self.testModel.id
         dict_v = self.testModel.__dict__
-        self.assertEqual(str(self.testModel), f"[{class_name}] ({id}) {dict_v}") 
+        self.assertEqual(str(self.testModel), f"[{class_name}] ({id}) {dict_v}")
         
 if __name__ == "__main__":
     unittest.main()
