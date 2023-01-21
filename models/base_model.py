@@ -17,9 +17,11 @@ class BaseModel:
             for key, val in kwargs.items():
                 if key == '__class__':
                     continue
-                self.__setattr__(self, key, val)
-            datetime.fromisoformat(self.__getattribute__('created_at'))
-            datetime.fromisoformat(self.__getattribute__('updated_at'))
+                if key == 'created_at':
+                    val = datetime.fromisoformat(val)
+                elif key == 'updated_at':
+                    val = datetime.fromisoformat(val)
+                self.__setattr__(key, val)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.utcnow()
