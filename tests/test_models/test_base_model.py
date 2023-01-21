@@ -36,6 +36,13 @@ class TestBaseModel(unittest.TestCase):
         testModel_dict = self.testModel.to_dict()
         self.assertIsInstance(testModel_dict.get('created_at'), str)
         self.assertIsInstance(testModel_dict.get('created_at'), str)
+    
+    # test string value of BaseModel
+    def test__str__(self):
+        class_name = self.testModel.__class__.__name__
+        id = self.testModel.id
+        dict_v = self.testModel.__dict__
+        self.assertEqual(str(self.testModel), f"[{class_name}] ({id}) {dict_v}") 
         
 if __name__ == "__main__":
     unittest.main()
