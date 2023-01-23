@@ -4,12 +4,21 @@ JSON file to instances"""
 
 import json
 import os
+from models.base_model import BaseModel
 
 
 class FileStorage:
-    def __init__(self):
-        self.__file_path = 'file.json'
-        self.__objects = {}
+
+    # private class attributes
+    # __file_path is the path to the JSON file to store all objects.
+    __file_path = 'file.json'
+
+    # __objects is a dictionary that stores all objects by <class name>.id
+    # ex: to store a BaseModel object with id=12121212, the key will be
+    # BaseModel.12121212 and the value will be the object.
+    # the object (value of key) is stored like this:
+    # <models.base_model.BaseModel object at 0x7f3329dac310>
+    __objects = {}
 
     def all(self):
         return self.__objects
@@ -24,19 +33,27 @@ class FileStorage:
         """
         key = obj.__class__.__name__ + '.' + obj.id
         # json_data = json.dump(obj)
-        self.__objects[key] = str(obj)
+        self.__objects[key] = obj
 
     # serializes __objects to the JSON file (path: __file_path)
     def save(self):
+        """ Serializes __objects to the JSON file (path: __file_path)."""
+        json_obj = {}
+        for key in self.__objects.keys():
+            json_obj[key] = self.__objects[key].to_dict()
 
         with open(self.__file_path, 'w') as json_file:
-            json.dump(self.__objects, json_file)
+            json.dump(json_obj, json_file)
 
     def reload(self):
-        """ Loads objects from JSON file."""
+        """Deserializes the JSON file to __objects (only if the JSON file"""
+        """(path: __file_path) exists ; otherwise, do nothing."""
+        if os.path.exists(self.__file_path):
+            with open(self.__file_path, 'r') as json_file:
+                json_obj = json.load(json_file)
+                for key in json_obj.keys():
 
-        try:
-            with open(self.__file_path) as json_file:
-                self.__objects = json.loads(json_file)
-        except FileNotFoundError as exception:
-            return
+                    # Using the dict value stored in json_obj[key]
+                    # (which is the dict value of the object)
+                    self.__objects[key] = eval(
+                        json_obj[key]['__class__'])(**json_obj[key])
