@@ -26,6 +26,10 @@ class HBNBCommand(cmd.Cmd):
 
     def help_help(self):
         print("Help command to print help information about a command")
+    
+    def emptyline(self):
+        # do nothing
+        pass
 
 
 if __name__ == '__main__':
