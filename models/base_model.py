@@ -2,8 +2,8 @@
 """This module contains the BaseModel class"""
 
 from datetime import datetime
+import models
 import uuid
-from models import storage
 
 
 class BaseModel:
@@ -29,7 +29,7 @@ class BaseModel:
             self.updated_at = self.created_at
 
             # 
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """Return a string representation of BaseModel"""
@@ -39,8 +39,8 @@ class BaseModel:
     def save(self):
         """Update the updated_at attribute"""
         self.updated_at = datetime.utcnow()
-        storage.new(self)
-        storage.save()
+        models.storage.new(self)
+        models.storage.save()
 
     def to_dict(self):
         """Return a dict representation of the BaseModel"""
