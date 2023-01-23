@@ -11,9 +11,7 @@ classes = {"BaseModel": BaseModel}
 class HBNBCommand(cmd.Cmd):
     """Command processor for ALU-AirBnB project"""
 
-    def __init__(self):
-        cmd.Cmd.__init__(self)
-        self.prompt = '(hbnb) '
+    prompt = '(hbnb) '
 
     # basic commands
 
