@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-"""A module that that serializes instances to a JSON file and deserializes JSON file to instances"""
+"""A module that that serializes instances to a JSON file and deserializes
+JSON file to instances"""
 
 import json
 import os
+
 
 class FileStorage:
     def __init__(self):
@@ -15,12 +17,13 @@ class FileStorage:
     # sets in __objects the obj with key <obj class name>.id
     def new(self, obj):
         """Add obj with key <obj class name>.id to dictionary.
-        
-        Args: 
-        
+
+        Args:
+
         obj: the object with key <obj class name>.id
         """
         key = obj.__class__.__name__ + '.' + obj.id
+        # json_data = json.dump(obj)
         self.__objects[key] = str(obj)
 
     # serializes __objects to the JSON file (path: __file_path)
@@ -34,6 +37,6 @@ class FileStorage:
 
         try:
             with open(self.__file_path) as json_file:
-                self.__objects = json.load(json_file)
+                self.__objects = json.loads(json_file)
         except FileNotFoundError as exception:
             return
