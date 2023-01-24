@@ -22,6 +22,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         sys.exit(1)
+    # short cut for quit command.
+    do_q = do_quit
 
     def help_quit(self):
         print("Quit command to exit the program")
@@ -101,6 +103,8 @@ class HBNBCommand(cmd.Cmd):
         storage = FileStorage()
         storage.reload()
         all_objects = storage.all()
+
+        # if the user input key is found in the storage, then delete the object
         if user_key in all_objects.keys():
             del all_objects[user_key]
             storage.save()
@@ -114,8 +118,23 @@ class HBNBCommand(cmd.Cmd):
         print("Usage: destroy <class name> <id>")
         print("Example: destroy BaseModel 029307ba-43b9-476f-8856-55a800762378")
 
-    # add shortcut for commands
-    do_q = do_quit
+    def do_all(self, cls):
+        storage = FileStorage()
+        storage.reload()
+        all_objects = storage.all()
+        if not cls:
+            print([str(obj) for obj in all_objects.values()])
+        elif cls not in classes.keys():
+            print("** class doesn't exist **")
+        else:
+            print([str(obj) for key, obj in all_objects.items()
+                   if key.split('.')[0] == cls])
+
+    def help_all(self):
+        print("All command to print all string representation of all instances")
+        print("Usage: all or all <class name>")
+        print("Example: all")
+        print("Example: all BaseModel")
 
 
 if __name__ == '__main__':
