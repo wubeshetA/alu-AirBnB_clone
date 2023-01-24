@@ -116,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
     def help_destroy(self):
         print("Destroy command to delete an object from storage")
         print("Usage: destroy <class name> <id>")
-        print("Example: destroy BaseModel 029307ba-43b9-476f-8856-55a800762378")
+        print("Example: destroy BaseModel 029307ba-43b9-476f-55a800762378")
 
     def do_all(self, cls):
         storage = FileStorage()
@@ -131,7 +131,9 @@ class HBNBCommand(cmd.Cmd):
                    if key.split('.')[0] == cls])
 
     def help_all(self):
-        print("All command to print all string representation of all instances")
+        print(
+            "All command to print all string representation of all instances"
+        )
         print("Usage: all or all <class name>")
         print("Example: all")
         print("Example: all BaseModel")
@@ -169,7 +171,7 @@ class HBNBCommand(cmd.Cmd):
             storage.reload()
             all_objects = storage.all()
 
-            # create a key of the form <class name>.<id> to search in the storage
+            # create a key of the form <class name>.<id> to search in storage
             user_key = cls_name + '.' + obj_id
 
             if cls_name not in classes.keys():
@@ -183,6 +185,13 @@ class HBNBCommand(cmd.Cmd):
             obj = all_objects[user_key]
             setattr(obj, attr_name, attr_value)
             obj.save()
+
+    def help_update(self):
+        print("Update command to update an attribute of an object")
+        print("Usage: update <class name> <id> <attr name> <attr value>")
+        print(
+            "Example: update BaseModel 55a800762378 email username@gmail.com"
+        )
 
 
 if __name__ == '__main__':
