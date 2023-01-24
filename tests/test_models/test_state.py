@@ -2,6 +2,7 @@
 """unittest for User class"""
 import unittest
 from models.state import State
+from models import BaseModel
 
 
 class TestState(unittest.TestCase):
@@ -9,6 +10,9 @@ class TestState(unittest.TestCase):
 
     def setUp(self):
         self.testState = State()
+
+    def testState(self):
+        self.assertTrue(issubclass(self.testState.__class__, BaseModel))
 
     def test_name(self):
         self.assertIsInstance(self.testState.name, str)

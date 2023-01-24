@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """unittest for User class"""
 import unittest
+from models import BaseModel
 from models.user import User
 
 
@@ -12,7 +13,7 @@ class TestUser(unittest.TestCase):
 
     def test_user(self):
         """Test if User class is subclass of BaseModel."""
-        self.assertTrue(issubclass(self.testUser.__class__, User))
+        self.assertTrue(issubclass(self.testUser.__class__, BaseModel))
 
     def test_email(self):
         """Test email class attribute."""
