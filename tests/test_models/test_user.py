@@ -10,7 +10,12 @@ class TestUser(unittest.TestCase):
     def setUp(self):
         self.testUser = User()
 
+    def test_user(self):
+        """Test if User class is subclass of BaseModel."""
+        self.assertTrue(issubclass(self.testUser.__class__, User))
+
     def test_email(self):
+        """Test email class attribute."""
         self.assertIsInstance(self.testUser.email, str)
 
     def test_password(self):
