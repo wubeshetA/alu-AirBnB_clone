@@ -4,9 +4,10 @@
 import cmd
 import sys
 from models.base_model import BaseModel
+from models.user import User
 from models.engine.file_storage import FileStorage
 
-classes = {"BaseModel": BaseModel}
+classes = {"BaseModel": BaseModel, "User": User}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -24,6 +25,9 @@ class HBNBCommand(cmd.Cmd):
         sys.exit(1)
     # short cut for quit command.
     do_q = do_quit
+
+    def help_q(self):
+        print("Shortcut for quit command")
 
     def help_quit(self):
         print("Quit command to exit the program")
