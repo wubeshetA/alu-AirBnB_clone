@@ -4,7 +4,7 @@ import unittest
 from models.state import State
 
 
-class TestBaseModel(unittest.TestCase):
+class TestState(unittest.TestCase):
     """Test cases for User class."""
 
     def setUp(self):

@@ -4,7 +4,7 @@ import unittest
 from models.user import User
 
 
-class TestBaseModel(unittest.TestCase):
+class TestUser(unittest.TestCase):
     """Test cases for User class."""
 
     def setUp(self):
