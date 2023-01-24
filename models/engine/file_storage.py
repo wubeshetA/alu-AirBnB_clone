@@ -5,13 +5,14 @@ JSON file to instances"""
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
 
     # private class attributes
     # __file_path is the path to the JSON file to store all objects.
-    __file_path = 'file.json'
+    __file_path = 'storage.json'
 
     # __objects is a dictionary that stores all objects by <class name>.id
     # ex: to store a BaseModel object with id=12121212, the key will be
@@ -53,7 +54,7 @@ class FileStorage:
                 json_obj = json.load(json_file)
                 for key in json_obj.keys():
 
-                    # Using the dict value stored in json_obj[key]
-                    # (which is the dict value of the object)
+                    # By providing the dict value stored in json_obj[key] as
+                    # kwargs, genrate an object with the same attributes
                     self.__objects[key] = eval(
                         json_obj[key]['__class__'])(**json_obj[key])
