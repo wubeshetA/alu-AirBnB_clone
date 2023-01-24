@@ -136,6 +136,54 @@ class HBNBCommand(cmd.Cmd):
         print("Example: all")
         print("Example: all BaseModel")
 
+    def do_update(self, args):
+
+        args_split = args.split(' ')
+
+        if len(args_split) < 4:
+            args_len = len(args_split)
+            print(args_len)
+            print(args_split)
+            if not args:
+                print("** class name missing **")
+                return
+            if args_len == 1:
+                print("** instance id missing **")
+                return
+            if args_len == 2:
+                print("** attribute name missing **")
+                return
+            if args_len == 3:
+                print("** value missing **")
+                return
+
+        else:
+            args_split = args_split[:4]
+
+            cls_name = args_split[0]
+            obj_id = args_split[1]
+            attr_name = args_split[2]
+            attr_value = args_split[3]
+
+            storage = FileStorage()
+            storage.reload()
+            all_objects = storage.all()
+
+            # create a key of the form <class name>.<id> to search in the storage
+            user_key = cls_name + '.' + obj_id
+
+            if cls_name not in classes.keys():
+                print("** class doesn't exist **")
+                return
+            if user_key not in all_objects.keys():
+                print("** no instance found **")
+                return
+
+            # if we reach here, then the object is found and update it.
+            obj = all_objects[user_key]
+            setattr(obj, attr_name, attr_value)
+            obj.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
