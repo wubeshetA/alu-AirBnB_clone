@@ -53,32 +53,29 @@ class HBNBCommand(cmd.Cmd):
         print("Usage: create <class name>")
         print("Example: create BaseModel")
 
-    def do_show(self, cls_id, ):
+    def do_show(self, cls_and_id):
 
-        cls = cls_id.split(' ')[0]
-        id = cls_id.split(' ')[1]
+        if len(cls_and_id) == 0:
+            print("** class name missing **")
+            return
+        elif len(cls_and_id.split(' ')) == 1:
+            print("** instance id missing **")
+            return
+        elif cls_and_id.split(' ')[0] not in classes.keys():
+            print("** class doesn't exist **")
+            return
+        # create a key of the form <class name>.<id> to search in the storage
+        user_key = cls_and_id.split(' ')[0] + '.' + cls_and_id.split(' ')[1]
 
         storage = FileStorage()
         storage.reload()
         all_objects = storage.all()
-        if not cls:
-            print("** class name missing **")
-        elif cls not in classes.keys():
-            print("** class doesn't exist **")
-        if not id:
-            print("** instance id missing **")
 
-        for obj_key in all_objects.keys():
-            # obj_key is stored as follow:
-            # Example: BaseModel.029307ba-43b9-476f-8856-55a800762378
-            # so from the above string we need to get id
+        # if the user input key is found in the storage, then print the object
+        if user_key in all_objects.keys():
+            print(all_objects[user_key])
+            return
 
-            # split the key into two parts to get the id.
-            obj_id = obj_key.split('.')[1]
-            # if user provided id and the id found here are the same, then that's the object the user is looking for.
-            if obj_id == id:
-                print(all_objects[obj_key])
-                return
         # if we reach here, then the object is not found.
         print("** no instance found **")
 
@@ -86,6 +83,39 @@ class HBNBCommand(cmd.Cmd):
         print("Show command to print the string representation of an instance")
         print("Usage: show <class name> <id>")
         print("Example: show BaseModel 029307ba-43b9-476f-8856-55a800762378")
+
+    def do_destroy(self, cls_and_id):
+
+        if len(cls_and_id) == 0:
+            print("** class name missing **")
+            return
+        elif len(cls_and_id.split(' ')) == 1:
+            print("** instance id missing **")
+            return
+        elif cls_and_id.split(' ')[0] not in classes.keys():
+            print("** class doesn't exist **")
+            return
+        # create a key of the form <class name>.<id> to search in the storage
+        user_key = cls_and_id.split(' ')[0] + '.' + cls_and_id.split(' ')[1]
+
+        storage = FileStorage()
+        storage.reload()
+        all_objects = storage.all()
+        if user_key in all_objects.keys():
+            del all_objects[user_key]
+            storage.save()
+            print("Object ", user_key, "has been destroyed successfully!")
+            return
+        # if we reach here, then the object is not found.
+        print("** no instance found **")
+
+    def help_destroy(self):
+        print("Destroy command to delete an object from storage")
+        print("Usage: destroy <class name> <id>")
+        print("Example: destroy BaseModel 029307ba-43b9-476f-8856-55a800762378")
+
+    # add shortcut for commands
+    do_q = do_quit
 
 
 if __name__ == '__main__':
