@@ -28,7 +28,7 @@
 #         # print("==============After=======================")
 #         storage.new(self.testModel) # adds a new object to __objects
 #         storage.save()
-        
+
 #         objects_after_new = storage.all()
 #         print("==============After=======================")
 #         print(objects_after_new.keys())

@@ -16,10 +16,10 @@ class TestReview(unittest.TestCase):
 
     def test_place_id(self):
         self.assertIsInstance(self.testReview.place_id, str)
-    
+
     def test_user_id(self):
         self.assertIsInstance(self.testReview.user_id, str)
-    
+
     def test_text(self):
         self.assertIsInstance(self.testReview.text, str)
 
