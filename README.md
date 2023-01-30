@@ -1,5 +1,5 @@
-# ALU-AirBnB
-![Optional Text](hbnb.png)
+<h1 align="center">ALU-AirBnB clone</h1>
+
 
 ## Description
 
@@ -54,7 +54,7 @@ EOF  help  quit
 $
 ```
 
-## Testing
+## Tests
 
 Unittests for the this project are defined in the [tests](./tests)
 folder. To run the entire test suite simultaneously, execute the following command:
