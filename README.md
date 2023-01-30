@@ -47,7 +47,7 @@ $ ./console.py
 (hbnb) help
 Documented commands (type help <topic>):
 ========================================
-EOF  help  quit
+EOF  all  create  destroy  help  q  quit  show  update
 (hbnb)
 (hbnb)
 (hbnb) quit
@@ -57,7 +57,7 @@ $
 ## Tests
 
 Unittests for the this project are defined in the [tests](./tests)
-folder. To run the entire test suite simultaneously, execute the following command:
+directory. To run the entire test suite simultaneously, execute the following command:
 
 ```
 $ python3 unittest -m discover tests
