@@ -10,10 +10,6 @@ ALU-AirBnB is a full-stack Web application built from scratch which comprize a c
 - A comprehensive database to manage the backend functionalities
 - An API that provides a communication interface between the front and backend of the system.
 
-## Table of Contents
-The following is a list of all the files in this repository and a brief description of each.
-
-
 
 ## Project Architecture
 
