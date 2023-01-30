@@ -9,6 +9,19 @@ class TestBaseModel(unittest.TestCase):
 
     def setUp(self):
         self.testModel = BaseModel()
+    
+    # tear down
+    def tearDown(self):
+        del self.testModel
+
+    def test_save(self):
+        baseModel = BaseModel()
+        updated_at_before_save = baseModel.updated_at
+        time.sleep(0.5)
+        baseModel.save()
+        updated_at_after_save = baseModel.updated_at
+        self.assertNotEqual(baseModel.updated_at, baseModel.created_at)
+        self.assertNotEqual(updated_at_before_save, updated_at_after_save)
 
     # test BaseModel before and after clling save method
     def test_save_before_save(self):
@@ -45,9 +58,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(str(self.testModel),
                          f"[{class_name}] ({id}) {dict_v}")
 
-    # tear down
-    def tearDown(self):
-        del self.testModel
+    
 
 
 if __name__ == "__main__":
