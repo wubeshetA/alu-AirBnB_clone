@@ -3,7 +3,7 @@
 
 ## Description
 
-ALU-AirBnB is a full-stack Web application built from scratch which comprize a command interpreter, a web interface, API and database. The goal of the project is to deploy a replica of the [Airbnb Website](https://www.airbnb.com/) using my server. The project is built using Python, HTML, CSS, Javascript, MySQL and SQLAlchemy. The final version of this project will have:
+ALU-AirBnB is a full-stack Web application built from scratch which comprize a command interpreter, a web interface, API and database. The goal of the project is to build a replica of the [Airbnb Website](https://www.airbnb.com/) and deploy it on server. The project is built using Python, HTML, CSS, Javascript, MySQL and SQLAlchemy. The final version of this project will have:
 
 - A command interpreter to manipulate data without a visual interface, like a shell (for development and debugging)
 - A website (front-end) with static and dynamic functionalities
