@@ -10,15 +10,25 @@ ALU-AirBnB is a full-stack Web application built from scratch which comprize a c
 - A comprehensive database to manage the backend functionalities
 - An API that provides a communication interface between the front and backend of the system.
 
+## Table of Contents
+The following is a list of all the files in this repository and a brief description of each.
+
+
+
+## Project Architecture
+
+The project is divided into different pieces. Here is a diagram of the project architecture:
+
+![Project Architecture](./project_architecture.png)
 
 ## Files and Directories
-- ```models``` directory will contain all classes used for the entire project. A class, called “model” in a OOP project is the representation of an object/instance.
-- ```tests``` directory will contain all unit tests.
-- ```console.py``` file is the entry point of our command interpreter.
-- ```models/base_model.py``` file is the base class of all our models. It contains common elements:
+- [```models```](./models/) directory will contain all classes used for the entire project. A class, called “model” in a OOP project is the representation of an object/instance.
+- [```tests```](./tests) directory will contain all unit tests.
+- [```console.py```](./console.py) file is the entry point of the command interpreter.
+- [```models/base_model.py```](./models/base_model.py) file is the base class of all models. It contains common elements:
     - attributes: ```id```, ```created_at``` and ```updated_at```
     - methods: ```save()``` and ```to_json()```
-- ```models/engine``` directory will contain all storage classes (using the same prototype). For the moment I will have only one: ```file_storage.py```.
+- [```models/engine```](./models/engine/) directory contains all storage classes (using the same prototype). Currently it contains: ```file_storage.py``` file.
 
 
 ## Description of the command interpreter
