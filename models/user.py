@@ -1,5 +1,8 @@
 #!/usr/bin/python3
+"""user module for the AirBnB clone"""
+
 from models import BaseModel
+
 
 class User(BaseModel):
     """User class"""

@@ -18,7 +18,8 @@ class Place(BaseModel):
     price_by_night = 0  # integer - 0
     latitude = 0.0  # float - 0.0
     longitude = 0.0  # float - 0.0
-    amenity_ids = []  # list of string - empty list: it will be the list of Amenity.id later
+    amenity_ids = []  # list of string - empty list: it will be the list of
+    # Amenity.id later
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
