@@ -31,6 +31,17 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     ruler = '-'
 
+    def default(self, line):
+        """default method for commands not in the cmd module. 
+        For this application it handles the dot notation commands."""
+        if "." in line:
+            command = line.split(".")
+            if command[1] == "all()":
+                self.do_all(command[0])
+            else:
+                print("*** Unknown syntax: {}".format(line))
+        else:
+            print("*** Unknown syntax: {}".format(line))
     # basic commands
 
     def do_EOF(self, line):
