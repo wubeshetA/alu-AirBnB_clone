@@ -223,6 +223,22 @@ class HBNBCommand(cmd.Cmd):
             "Example: update BaseModel 55a800762378 email username@gmail.com"
         )
 
+    def do_count(self, cls):
+        storage = FileStorage()
+        storage.reload()
+        all_objects = storage.all()
+        if not cls:
+            # Print all objects in the storage
+            print(len([str(obj) for obj in all_objects.values()]))
+            return
+        elif cls not in classes.keys():
+            print("** class doesn't exist **")
+            return
+            
+        # If it reaches here, Print all objects of a specific class
+        print(len([str(obj) for key, obj in all_objects.items()
+                    if key.split('.')[0] == cls]))
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
