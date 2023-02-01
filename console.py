@@ -44,6 +44,8 @@ class HBNBCommand(cmd.Cmd):
                 print("command:", command[1])
                 print("sliced value:", command[1][6:-2])
                 self.do_show(command[0] + " " + command[1][6:-2])
+            elif command[1].startswith("destroy("):
+                self.do_destroy(command[0] + " " + command[1][9:-2])
             else:
                 print("*** Unknown syntax: {}".format(line))
         else:
