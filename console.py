@@ -32,20 +32,41 @@ class HBNBCommand(cmd.Cmd):
     ruler = '-'
 
     def default(self, line):
-        """default method for commands not in the cmd module. 
+        """default method for commands not in the cmd module.
         For this application it handles the dot notation commands."""
         if "." in line:
+
             command = line.split(".")
             if command[1] == "all()":
                 self.do_all(command[0])
+
             elif command[1] == "count()":
                 self.do_count(command[0])
+
             elif command[1].startswith("show("):
                 print("command:", command[1])
                 print("sliced value:", command[1][6:-2])
                 self.do_show(command[0] + " " + command[1][6:-2])
+
             elif command[1].startswith("destroy("):
                 self.do_destroy(command[0] + " " + command[1][9:-2])
+
+            elif command[1].startswith("update("):
+                params = command[1][7:-1]
+                index_counter = 0
+                for param in params.split(","):
+                    if index_counter >= 1 and not param.startswith(" "):
+                        print(
+                            "Insert spaces after comma(,) to divide parameters"
+                        )
+                        return
+                    index_counter += 1
+                id = params.split(",")[0][1:-1]
+                attr = params.split(",")[1][2:-1]
+                value = params.split(",")[2][2:-1]
+                param_to_pass = command[0] + ' ' + \
+                    id + ' ' + attr + ' ' + value
+                self.do_update(param_to_pass)
             else:
                 print("*** Unknown syntax: {}".format(line))
         else:
@@ -182,8 +203,8 @@ class HBNBCommand(cmd.Cmd):
 
         if len(args_split) < 4:
             args_len = len(args_split)
-            print(args_len)
-            print(args_split)
+            # print(args_len)
+            # print(args_split)
             if not args:
                 print("** class name missing **")
                 return
