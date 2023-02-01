@@ -38,6 +38,12 @@ class HBNBCommand(cmd.Cmd):
             command = line.split(".")
             if command[1] == "all()":
                 self.do_all(command[0])
+            elif command[1] == "count()":
+                self.do_count(command[0])
+            elif command[1].startswith("show("):
+                print("command:", command[1])
+                print("sliced value:", command[1][6:-2])
+                self.do_show(command[0] + " " + command[1][6:-2])
             else:
                 print("*** Unknown syntax: {}".format(line))
         else:
@@ -234,10 +240,10 @@ class HBNBCommand(cmd.Cmd):
         elif cls not in classes.keys():
             print("** class doesn't exist **")
             return
-            
+
         # If it reaches here, Print all objects of a specific class
         print(len([str(obj) for key, obj in all_objects.items()
-                    if key.split('.')[0] == cls]))
+                   if key.split('.')[0] == cls]))
 
 
 if __name__ == '__main__':
