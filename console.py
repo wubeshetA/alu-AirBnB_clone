@@ -139,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_quit(self, arg):
-        sys.exit(1)
+        return True
     # short cut for quit command.
     do_q = do_quit
 

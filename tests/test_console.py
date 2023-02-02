@@ -4,6 +4,7 @@
 all unittests for console.py, all features!
 
 """
+import os
 import unittest
 from unittest.mock import patch
 from io import StringIO
@@ -77,6 +78,30 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd("create BaseModel")
             HBNBCommand().onecmd("destroy BaseModel " + f.getvalue())
             self.assertIn("Destroyed successfully!", f.getvalue().strip())
+
+    def test_all(self):
+        """Test all"""
+        # with patch('sys.stdout', new=StringIO()) as f:
+        #     HBNBCommand().onecmd("all")
+        #     self.assertEqual("[]", f.getvalue().strip())
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all FakeClass")
+            self.assertEqual("** class doesn't exist **", f.getvalue().strip())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            HBNBCommand().onecmd("all BaseModel")
+            self.assertIn("BaseModel", f.getvalue().strip())
+
+    def test_quit(self):
+        """Test quit"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.assertTrue(HBNBCommand().onecmd("quit"))
+    
+    def test_EOF(self):
+        """Test EOF"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.assertTrue(HBNBCommand().onecmd("EOF"))
 
 
 if __name__ == "__main__":
