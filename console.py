@@ -233,7 +233,7 @@ class HBNBCommand(cmd.Cmd):
         if user_key in all_objects.keys():
             del all_objects[user_key]
             storage.save()
-            print("Object ", user_key, "has been destroyed successfully!")
+            print("Destroyed successfully!")
             return
         # if we reach here, then the object is not found.
         print("** no instance found **")
