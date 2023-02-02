@@ -57,25 +57,40 @@ class HBNBCommand(cmd.Cmd):
                 command_pattern = re.compile("update\((.+)\)")
                 command_result = command_pattern.search(line).group()
                 print("command result: ", type(command_result))
+
+                # get Id from the string
                 id_pattern = re.compile(
-                    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
+                    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+                )
                 id = id_pattern.search(command_result).group()
+
                 print("======== id: " + id)
-                pattern = re.compile(r"{.+}")
-                result = pattern.search(line).group()
-                if result:
+
+                # check if the last parameter is a dict and get values
+                dict_repr_pattern = re.compile(r"{.+}")
+                dict_repr = dict_repr_pattern.search(line)
+
+                # if the last parameter is a dict, get values and execute update
+                if dict_repr:
+                    dict_repr = dict_repr.group()
                     print("================================================")
-                    print("Type of result: ", type(result), "result ", result)
+                    print("Type of result: ", type(
+                        dict_repr), "result ", dict_repr)
                     print("================================================")
-                    result = eval(result)
+                    dict_repr = eval(dict_repr)
                     # excute the update
-                    for key, value in result.items():
+                    for key, value in dict_repr.items():
                         param_to_pass = command[0] + ' ' + \
                             id + ' ' + key + ' ' + str(value)
                         self.do_update(param_to_pass)
 
+                # if the last parameter is not a dict,
+                # get the values and execute update
                 else:
                     params = command_result[7:-1]
+                    print("params: ", params)
+
+                    index_counter = 0
                     for param in params.split(","):
 
                         if index_counter >= 1 and not param.startswith(" "):
@@ -84,7 +99,6 @@ class HBNBCommand(cmd.Cmd):
                             )
                             return
                         index_counter += 1
-                    id = params.split(",")[0][1:-1]
                     attr = params.split(",")[1][2:-1]
                     value = params.split(",")[2][1:]
                     # incase the value of variable value is int pass it on eval
