@@ -38,7 +38,6 @@ class HBNBCommand(cmd.Cmd):
         if "." in line:
 
             command = line.split(".")
-            print("command[1]: ", command[1])
             if command[1] == "all()":
                 self.do_all(command[0])
 
@@ -64,8 +63,10 @@ class HBNBCommand(cmd.Cmd):
                     "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}"
                     "-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
                 )
-                id = id_pattern.search(command_result).group()
 
+                id = id_pattern.search(command_result)
+                if not None:
+                    id = id.group()
                 # check if attributes and values are provided in dict format
                 dict_repr_pattern = re.compile(r"{.+}")
                 dict_repr = dict_repr_pattern.search(line)
