@@ -9,16 +9,6 @@ import unittest
 from unittest.mock import patch
 from io import StringIO
 from console import HBNBCommand
-from models import storage
-from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.amenity import Amenity
-from models.engine.file_storage import FileStorage
-
 
 class TestConsole(unittest.TestCase):
     """Test console"""
@@ -97,7 +87,7 @@ class TestConsole(unittest.TestCase):
         """Test quit"""
         with patch('sys.stdout', new=StringIO()) as f:
             self.assertTrue(HBNBCommand().onecmd("quit"))
-    
+
     def test_EOF(self):
         """Test EOF"""
         with patch('sys.stdout', new=StringIO()) as f:
