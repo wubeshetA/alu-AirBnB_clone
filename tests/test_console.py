@@ -22,6 +22,11 @@ from models.engine.file_storage import FileStorage
 class TestConsole(unittest.TestCase):
     """Test console"""
 
+    def setUp(self):
+        """Set up"""
+        self.id_regex = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}"
+        "-[0-9a-f]{4}-[0-9a-f]{12}"
+
     def test_create(self):
         """Test create"""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -32,9 +37,7 @@ class TestConsole(unittest.TestCase):
             self.assertEqual("** class doesn't exist **", f.getvalue().strip())
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create BaseModel")
-            id_regex = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}"
-            "-[0-9a-f]{4}-[0-9a-f]{12}"
-            self.assertRegex(f.getvalue().strip(), id_regex)
+            self.assertRegex(f.getvalue().strip(), self.id_regex)
 
     def test_show(self):
         """Test show"""
@@ -52,11 +55,29 @@ class TestConsole(unittest.TestCase):
             self.assertEqual("** no instance found **", f.getvalue().strip())
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("create BaseModel")
-            id_regex = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}"
-            "-[0-9a-f]{4}-[0-9a-f]{12}"
-            self.assertRegex(f.getvalue().strip(), id_regex)
+            self.assertRegex(f.getvalue().strip(), self.id_regex)
             HBNBCommand().onecmd("show BaseModel " + f.getvalue().strip())
-            self.assertRegex(f.getvalue().strip(), id_regex)
+            self.assertRegex(f.getvalue().strip(), self.id_regex)
+
+    def test_destroy(self):
+        """Test destroy"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy")
+            self.assertEqual("** class name missing **", f.getvalue().strip())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy FakeClass")
+            self.assertEqual("** instance id missing **", f.getvalue().strip())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy BaseModel")
+            self.assertEqual("** instance id missing **", f.getvalue().strip())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("destroy BaseModel 1234")
+            self.assertEqual("** no instance found **", f.getvalue().strip())
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            HBNBCommand().onecmd("destroy BaseModel " + f.getvalue())
+            self.assertIn("Destroyed successfully!", f.getvalue().strip())
+
 
 if __name__ == "__main__":
     unittest.main()
