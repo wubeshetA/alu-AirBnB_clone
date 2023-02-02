@@ -2,6 +2,7 @@
 """console"""
 
 import cmd
+from os import system
 import sys
 from models.base_model import BaseModel
 from models.user import User
@@ -45,8 +46,6 @@ class HBNBCommand(cmd.Cmd):
                 self.do_count(command[0])
 
             elif command[1].startswith("show("):
-                print("command:", command[1])
-                print("sliced value:", command[1][6:-2])
                 self.do_show(command[0] + " " + command[1][6:-2])
 
             elif command[1].startswith("destroy("):
@@ -159,6 +158,10 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         # do nothing
         pass
+
+    # command to clear the window
+    def do_clear(self, arg):
+        system('cls')
 
     # commands to handle BaseModel
 
