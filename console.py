@@ -67,9 +67,6 @@ class HBNBCommand(cmd.Cmd):
                 id = id_pattern.search(command_result)
                 if id is not None:
                     id = id.group()
-                if id is None:
-                    print("Invalid Id")
-                    return
                 # check if attributes and values are provided in dict format
                 dict_repr_pattern = re.compile(r"{.+}")
                 dict_repr = dict_repr_pattern.search(line)
@@ -84,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
                     # excute the update with each key value pair
                     for key, value in dict_repr.items():
                         param_to_pass = command[0] + ' ' + \
-                            id + ' ' + key + ' ' + str(value)
+                            str(id) + ' ' + key + ' ' + str(value)
                         self.do_update(param_to_pass)
 
                 # if dict format is not provided, it means the attributes
@@ -131,7 +128,7 @@ class HBNBCommand(cmd.Cmd):
 
                     # create the parameter string to pass on to do_update
                     param_to_pass = command[0] + ' ' + \
-                        id + ' ' + attr + ' ' + str(value)
+                        str(id) + ' ' + attr + ' ' + str(value)
                     self.do_update(param_to_pass)
             else:
                 print("*** Unknown syntax: {}".format(line))
