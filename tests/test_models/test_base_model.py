@@ -9,7 +9,7 @@ class TestBaseModel(unittest.TestCase):
 
     def setUp(self):
         self.testModel = BaseModel()
-    
+
     # tear down
     def tearDown(self):
         del self.testModel
@@ -57,8 +57,6 @@ class TestBaseModel(unittest.TestCase):
         dict_v = self.testModel.__dict__
         self.assertEqual(str(self.testModel),
                          f"[{class_name}] ({id}) {dict_v}")
-
-    
 
 
 if __name__ == "__main__":
