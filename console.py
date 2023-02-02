@@ -12,7 +12,7 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
-
+import re
 # models class stored in dict for easier access.
 classes = {
     "BaseModel": BaseModel,
@@ -34,9 +34,11 @@ class HBNBCommand(cmd.Cmd):
     def default(self, line):
         """default method for commands not in the cmd module.
         For this application it handles the dot notation commands."""
+
         if "." in line:
 
             command = line.split(".")
+            print("command[1]: ", command[1])
             if command[1] == "all()":
                 self.do_all(command[0])
 
@@ -52,21 +54,82 @@ class HBNBCommand(cmd.Cmd):
                 self.do_destroy(command[0] + " " + command[1][9:-2])
 
             elif command[1].startswith("update("):
-                params = command[1][7:-1]
-                index_counter = 0
-                for param in params.split(","):
-                    if index_counter >= 1 and not param.startswith(" "):
-                        print(
-                            "Insert spaces after comma(,) to divide parameters"
-                        )
-                        return
-                    index_counter += 1
-                id = params.split(",")[0][1:-1]
-                attr = params.split(",")[1][2:-1]
-                value = params.split(",")[2][2:-1]
-                param_to_pass = command[0] + ' ' + \
-                    id + ' ' + attr + ' ' + value
-                self.do_update(param_to_pass)
+                command_pattern = re.compile("update\((.+)\)")
+                command_result = command_pattern.search(line).group()
+                print("command result: ", type(command_result))
+                id_pattern = re.compile(
+                    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
+                id = id_pattern.search(command_result).group()
+                print("======== id: " + id)
+                pattern = re.compile(r"{.+}")
+                result = pattern.search(line).group()
+                if result:
+                    print("================================================")
+                    print("Type of result: ", type(result), "result ", result)
+                    print("================================================")
+                    result = eval(result)
+                    # excute the update
+                    for key, value in result.items():
+                        param_to_pass = command[0] + ' ' + \
+                            id + ' ' + key + ' ' + str(value)
+                        self.do_update(param_to_pass)
+
+                else:
+                    params = command_result[7:-1]
+                    for param in params.split(","):
+
+                        if index_counter >= 1 and not param.startswith(" "):
+                            print(
+                                "Insert spaces after comma(,) to divide parameters"
+                            )
+                            return
+                        index_counter += 1
+                    id = params.split(",")[0][1:-1]
+                    attr = params.split(",")[1][2:-1]
+                    value = params.split(",")[2][1:]
+                    # incase the value of variable value is int pass it on eval
+                    try:
+                        eval(value)
+                        value = eval(value)
+                    except Exception as e:
+                        pass
+                    param_to_pass = command[0] + ' ' + \
+                        id + ' ' + attr + ' ' + str(value)
+                    self.do_update(param_to_pass)
+
+                # print("result ", result.group())
+
+            #     params = command[1][7:-1]
+            #     index_counter = 0
+
+            #     # check if the last parameter is a dict
+            #     if (params.split(",")[-1].endswith("}")):
+            #         dict_params = eval(params.split(",")[1])
+            #         print(dict_params)
+            #         for key, value in dict_params.items():
+            #             self.do_update(command[0] + " " + params.split(",")[0][1:-1] + " " + key + " " + str(value))
+
+            #     # for param in params.split(","):
+
+                #     if index_counter >= 1 and not param.startswith(" "):
+                #         print(
+                #             "Insert spaces after comma(,) to divide parameters"
+                #         )
+                #         return
+                #     index_counter += 1
+                # id = params.split(",")[0][1:-1]
+                # attr = params.split(",")[1][2:-1]
+                # value = params.split(",")[2][1:]
+
+                # # incase the value of variable value is int pass it on eval
+                # try:
+                #     eval(value)
+                #     value = eval(value)
+                # except Exception as e:
+                #     pass
+                # param_to_pass = command[0] + ' ' + \
+                #     id + ' ' + attr + ' ' + str(value)
+                # self.do_update(param_to_pass)
             else:
                 print("*** Unknown syntax: {}".format(line))
         else:
