@@ -65,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
                 )
 
                 id = id_pattern.search(command_result)
-                if not None:
+                if id is not None:
                     id = id.group()
                 # check if attributes and values are provided in dict format
                 dict_repr_pattern = re.compile(r"{.+}")
