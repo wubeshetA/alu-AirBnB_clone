@@ -54,96 +54,81 @@ class HBNBCommand(cmd.Cmd):
                 self.do_destroy(command[0] + " " + command[1][9:-2])
 
             elif command[1].startswith("update("):
-                command_pattern = re.compile("update\((.+)\)")
+
+                # remove the model name, and get the rest of the string
+                command_pattern = re.compile("update\\((.+)\\)")
                 command_result = command_pattern.search(line).group()
-                print("command result: ", type(command_result))
 
                 # get Id from the string
                 id_pattern = re.compile(
-                    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+                    "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}"
+                    "-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
                 )
                 id = id_pattern.search(command_result).group()
 
-                print("======== id: " + id)
-
-                # check if the last parameter is a dict and get values
+                # check if attributes and values are provided in dict format
                 dict_repr_pattern = re.compile(r"{.+}")
                 dict_repr = dict_repr_pattern.search(line)
 
-                # if the last parameter is a dict, get values and execute update
+                # if it is dict format, execute update for each key value pair
                 if dict_repr:
+
+                    # get dict representation
                     dict_repr = dict_repr.group()
-                    print("================================================")
-                    print("Type of result: ", type(
-                        dict_repr), "result ", dict_repr)
-                    print("================================================")
                     dict_repr = eval(dict_repr)
-                    # excute the update
+
+                    # excute the update with each key value pair
                     for key, value in dict_repr.items():
                         param_to_pass = command[0] + ' ' + \
                             id + ' ' + key + ' ' + str(value)
                         self.do_update(param_to_pass)
 
-                # if the last parameter is not a dict,
-                # get the values and execute update
+                # if dict format is not provided, it means the attributes
+                #  and values are provided as parameters
                 else:
-                    params = command_result[7:-1]
-                    print("params: ", params)
 
+                    # get the parameters from the string
+                    # and remove the first and last brackets
+                    # the format of parms variable is as follows:
+                    # ex: params:  "b1d6-eaaddf0e76c1", "first_name", "John"
+                    # on the above line id value is trimmed for convenience.
+                    params = command_result[7:-1]
+                    # print("params: ", params)
+
+                    # the following for loop is to check if user entered
+                    # values with spaces after comma(,).
+                    # If the user did not enter spaces after comma(,)
+                    # it will create a problem while slicing the string to
+                    # get the values, specifically value parameter is extracted
+                    # without error given space is provided after comma(,).
                     index_counter = 0
                     for param in params.split(","):
 
                         if index_counter >= 1 and not param.startswith(" "):
                             print(
-                                "Insert spaces after comma(,) to divide parameters"
+                                "Insert spaces after comma(,) "
+                                "to divide parameters"
                             )
                             return
                         index_counter += 1
+
+                    # get the id, attribute and value from the string
                     attr = params.split(",")[1][2:-1]
                     value = params.split(",")[2][1:]
+
                     # incase the value of variable value is int pass it on eval
+                    # to convert it to int, if it is not int, it will throw an
+                    # exception, in that case we will not pass it on eval.
                     try:
                         eval(value)
                         value = eval(value)
                     except Exception as e:
                         pass
+
+                    # create the parameter string to pass on to do_update
                     param_to_pass = command[0] + ' ' + \
                         id + ' ' + attr + ' ' + str(value)
                     self.do_update(param_to_pass)
-
-                # print("result ", result.group())
-
-            #     params = command[1][7:-1]
-            #     index_counter = 0
-
-            #     # check if the last parameter is a dict
-            #     if (params.split(",")[-1].endswith("}")):
-            #         dict_params = eval(params.split(",")[1])
-            #         print(dict_params)
-            #         for key, value in dict_params.items():
-            #             self.do_update(command[0] + " " + params.split(",")[0][1:-1] + " " + key + " " + str(value))
-
-            #     # for param in params.split(","):
-
-                #     if index_counter >= 1 and not param.startswith(" "):
-                #         print(
-                #             "Insert spaces after comma(,) to divide parameters"
-                #         )
-                #         return
-                #     index_counter += 1
-                # id = params.split(",")[0][1:-1]
-                # attr = params.split(",")[1][2:-1]
-                # value = params.split(",")[2][1:]
-
-                # # incase the value of variable value is int pass it on eval
-                # try:
-                #     eval(value)
-                #     value = eval(value)
-                # except Exception as e:
-                #     pass
-                # param_to_pass = command[0] + ' ' + \
-                #     id + ' ' + attr + ' ' + str(value)
-                # self.do_update(param_to_pass)
             else:
                 print("*** Unknown syntax: {}".format(line))
         else:
