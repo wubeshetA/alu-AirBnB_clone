@@ -5,6 +5,7 @@ div.container section {
     /* border 1px #DDDDDD with radius 4px */
     border: 1px solid #dddddd;
     border-radius: 4px;
+    align-items: center;
 
 }
 div.container section button {

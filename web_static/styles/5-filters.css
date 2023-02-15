@@ -6,7 +6,7 @@
     border: 1px solid #dddddd;
     border-radius: 4px;
     display: flex;
-    /* align-items: center; */
+    align-items: center;
 
 }
 div.container section button {
@@ -20,7 +20,7 @@ div.container section button {
     border-radius: 4px;
     margin-right: 30px;
     /* center it vertically */
-    margin-top: 10px;
+    /* margin-top: 10px; */
 
 }
 
@@ -31,11 +31,11 @@ div.container section button:hover {
     opacity: 0.9;
 }
 
-.location {
+.locations {
     height: 100%;
     width: 25%;
     border-right: 1px;
-    border-right-color: #dddddd;
+    border-right-color: #DDDDDD;
     border-right-style: solid;
 
 }
