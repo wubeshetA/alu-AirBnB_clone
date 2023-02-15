@@ -61,3 +61,35 @@ h3 {
     margin-left: 40px;
     margin-top: 3px;
   }
+
+  
+/* not displayed by default
+color #FAFAFA
+width same as the div filter
+border #DDDDDD 1px with border radius 4px
+no list display */
+.popover {
+    display: none;
+    /* color: #fafafa; */
+    background-color: #fafafa;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    list-style: none;
+    padding-top: 20px;
+    padding-bottom: 10px;
+
+  }
+
+/* display the popover when hover on the location class */
+    .locations:hover .popover {
+        display: block;
+    }
+
+/* display the popover when hover on the amenities class */
+    .amenities:hover .popover {
+        display: block;
+    }
+
+.sub-popover {
+    list-style: none;
+}
