@@ -1,0 +1,107 @@
+.places h1 {
+    margin-left: 20px;
+    font-size: 30px;
+    display: block;
+    margin-bottom: 0;
+  }
+
+  .places article {
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: #FF5A5F 1px;
+    border-radius: 4px;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+  }
+
+  .places .places-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .places h2 {
+    font-size: 30px;
+    margin-top: 20px;
+    /* margin-bottom: 15px; */
+  }
+/* ================= */
+
+
+  .places article {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+  }
+    .places article .title_box {
+        display: flex;
+        flex-direction: row;
+        /* justify-content: center; */
+        /* make a horizontal border below it */
+        border-bottom: 1px solid #DDDDDD;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0;
+    }
+  /* 
+same level as the place name
+font color: #FF5A5F
+border: #FF5A5F 4px rounded
+min width: 60px
+height: 60px
+font size: 30px
+align: the top right (with space) */
+
+.places article .price_by_night {
+    font-size: 30px;
+    color: #FF5A5F;
+    border: #FF5A5F 4px solid;
+    border-radius: 50%;
+    min-width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .places article .information {
+    display: flex;
+    border-bottom: 1px solid #DDDDDD;
+    padding-bottom: 10px;
+    justify-content: space-around;
+    margin-top: 10px;
+    
+  }
+  
+  /* .places article img {
+    width: 50px;
+  } */
+
+  .places article .max_guest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+  }
+  .places article .number_rooms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+  }
+  .places article .number_bathrooms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+  }
+  
+
+  .places .user {
+    padding-top: 20px;
+  }
+  .places .description p{
+    margin-top: 5px;
+  }
