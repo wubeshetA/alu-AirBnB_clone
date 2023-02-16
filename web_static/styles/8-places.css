@@ -45,7 +45,7 @@
         align-items: center;
         margin-top: 0;
     }
-  /* 
+  /*
 same level as the place name
 font color: #FF5A5F
 border: #FF5A5F 4px rounded
@@ -105,3 +105,60 @@ align: the top right (with space) */
   .places .description p{
     margin-top: 5px;
   }
+
+  .places article .amenities {
+    width: 100%;
+  }
+
+
+
+.places article .amenities h2 {
+    font-size: 16px;
+    /* border bottom */
+    border-bottom: 1px solid #DDDDDD;
+    /* padding-bottom: 5px; */
+    
+}
+
+.places article .amenities ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.places article .amenities ul li {
+    display: flex;
+    align-items: center;
+}
+
+.places article .amenities ul li img {
+    width: 20px;
+    height: 20px;
+    padding-right: 5px;
+}
+
+.places article .reviews h2 {
+    font-size: 16px;
+    /* border bottom */
+    border-bottom: 1px solid #DDDDDD;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    
+}
+
+.places article .reviews ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.places article .reviews ul li {
+    padding-bottom: 20px;
+
+}
+
+.places article .reviews ul li h3 {
+    font-size: 14px;
+}
