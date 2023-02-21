@@ -166,52 +166,44 @@ class HBNBCommand(cmd.Cmd):
     # commands to handle BaseModel
 
     def do_create(self, args):
+
         # split the args to get the class name
         class_name = args.split(' ')[0]
+        # Validate if the class name is provided and if it exists
         if not class_name:
             print("** class name missing **")
         elif class_name not in classes.keys():
             print("** class doesn't exist **")
         else:
+            # create an instance of the class
             new_model = classes[class_name]()
 
+            # if there are parameters provided, set the attributes
             if len(args.split(' ')) > 1:
+
                 # get the parameters from the string
                 params = args.split(' ')[1:]
-                print("params: ", params)
                 for param in params:
-                    print("param: ", param)
-                    key = param.split('=')[0]
-                    value = param.split('=')[1]
+                    # split the param to get the key and value
+                    key, value = param.split('=')
+                
                     # if value is convertable to another type, convert it
+                    # convertable types are int, float, bool
                     try:
                         value = eval(value)
                     except Exception as e:
                         pass
+                    # if value is a string and it contains underscore(_)
+                    # replace the underscore with space
+                    if type(value) is str and '_' in value:
+                        value = value.replace('_', ' ')
 
-                    print("key: ", key)
-                    print("value: ", value)
-                    print("type:     ", type(value))
-                    print("==================")
-
-                    # set the attribute
                     setattr(new_model, key, value)
                     new_model.save()
                     print(new_model.id)
-
+                return
             new_model.save()
             print(new_model.id)
-                    
-
-            # if len(params) > 0:
-            # if len(args.split(' ')) > 1:
-            #     args = args.split(' ')[0]
-            #     params = args.split(' ')[1:]
-
-            # else:
-            #     params = None
-
-           
 
     def help_create(self):
         print("Create command to create a new instance of a class")
