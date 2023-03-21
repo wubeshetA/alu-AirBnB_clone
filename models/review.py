@@ -1,15 +1,18 @@
 #!/usr/bin/python3
-"""user module for the AirBnB clone"""
+""" Review module for the HBNB project """
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, Integer, ForeignKey
 
-from models import BaseModel
 
+class Review(BaseModel, Base):
+    """Review class to store review information
 
-class Review(BaseModel):
-    """Review class"""
+    Args:
+        BaseModel (_type_): _description_
+        Base (_type_): _description_
+    """
+    __tablename__ = "reviews"
 
-    place_id = ""  # string - empty string: it will be the Place.id
-    user_id = ""  # string - empty string: it will be the User.id
-    text = ""  # string - empty string
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    place_id = Column(ForeignKey('places.id'), nullable=False)
+    user_id = Column(ForeignKey('users.id'), nullable=False)
+    text = Column(String(1024), nullable=False)
