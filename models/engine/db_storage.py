@@ -10,6 +10,8 @@ from models.review import Review
 from models.state import State
 from models.city import City
 from models.user import User
+from models.base_model import Base
+
 
 class DBStorage:
 
@@ -24,9 +26,7 @@ class DBStorage:
         passwd = os.getenv('HBNB_MYSQL_PWD')
         host = os.getenv('HBNB_MYSQL_HOST')
         db = os.getenv('HBNB_MYSQL_DB')
-        port = os.getenv('HBNB_MYSQL_PORT')
         env = os.getenv('HBNB_ENV')
-        # storage_type = os.getenv('HBNB_STORAGE_TYPE')
 
         db_path = ('mysql+mysqldb://{}:{}@{}/{}'
                    .format(user, passwd, host, db))
@@ -35,3 +35,19 @@ class DBStorage:
         # drop all tables if the environment variable HBNB_ENV is equal to test
         if env == 'test':
             Base.metadata.drop_all(self.__engine)
+
+    def all(self, cls=None):
+        """ query on the current database session """
+        # create a dictionary
+        obj_dict = {}
+        if cls is None:
+            classes = [State, City, User, Place, Review, Amenity]
+            for class_name in classes:
+                for obj in self.__session.query(class_name):
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    obj_dict[key] = obj
+        else:
+            for obj in self.__session.query(cls):
+                key = obj.__class__.__name__ + '.' + obj.id
+                obj_dict[key] = obj
+        return obj_dict
