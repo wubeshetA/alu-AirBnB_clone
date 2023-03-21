@@ -1,14 +1,19 @@
-#!/user/bin/python3
-"""state module for the AirBnB clone"""
+#!/usr/bin/python3
+""" State Module for HBNB project """
+from models.base_model import BaseModel, Base
+# import sqlalchemy modules
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 
-from models import BaseModel
 
+class State(BaseModel, Base):
 
-class State(BaseModel):
-    """State class"""
+    """This is the class for State
+    Attributes:
+        name: input name
+    """
+    __tablename__ = "states"
 
-    # class attributes
-    name = ""
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", cascade='all, delete, delete-orphan',
+                          backref="state")
