@@ -24,10 +24,24 @@ class FileStorage:
     # BaseModel.12121212 and the value will be the object.
     # the object (value of key) is stored like this:
     # <models.base_model.BaseModel object at 0x7f3329dac310>
+    # obects = {BaseModel.12121212: }
     __objects = {}
 
-    def all(self):
-        return self.__objects
+    def all(self, cls=None):
+        """Returns a list of all objects if cls is None. If cls is provided, return all objects of that type.
+        """
+
+        if cls is not None:
+
+            obj = {}
+            print("================file storage=================")
+            print(FileStorage.__objects.items())
+            for key, val in FileStorage.__objects.items():
+                if cls.__name__ in key:
+                    obj[key] = val
+            return obj
+        else:
+            return self.__objects
 
     # sets in __objects the obj with key <obj class name>.id
     def new(self, obj):
@@ -63,3 +77,12 @@ class FileStorage:
                     # kwargs, genrate an object with the same attributes
                     self.__objects[key] = eval(
                         json_obj[key]['__class__'])(**json_obj[key])
+
+    def delete(self, obj=None):
+        """Delete an object from the __objects"""
+        if obj is not None:
+            for key, val in list(FileStorage.__objects.items()):
+                if obj == val:
+                    del FileStorage.__objects[key]
+                    print("Deleted: {}".format(key))
+                    self.save()
