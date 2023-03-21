@@ -51,3 +51,30 @@ class DBStorage:
                 key = obj.__class__.__name__ + '.' + obj.id
                 obj_dict[key] = obj
         return obj_dict
+
+    def new(self, obj):
+        """ add the object to the current database session """
+        self.__session.add(obj)
+
+    def save(self):
+        """ commit all changes of the current database session """
+        try:
+            self.__session.commit()
+        except Exception:
+            self.__session.rollback()
+        finally:
+            self.__session.close()
+
+    def delete(self, obj=None):
+        """ delete from the current database session obj if not None """
+        if obj is not None:
+            self.__session.delete(obj)
+
+    def reload(self):
+        """ create all tables in the database """
+        Base.metadata.create_all(self.__engine)
+        # create a configured "Session" class
+        sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sec)
+        # create a Session
+        self.__session = Session()
