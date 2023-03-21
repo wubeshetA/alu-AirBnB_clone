@@ -1,13 +1,14 @@
 #!/usr/bin/python3
-"""Amenity module for the AirBnB clone"""
+""" State Module for HBNB project """
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 
-from models import BaseModel
+class Amenity(BaseModel, Base):
 
+    """Amenity class to store amenity information"""
 
-class Amenity(BaseModel):
-    """Amenity class"""
+    __tablename__ = "amenities"
 
-    name = ""
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    name = Column(String(128), nullable=False)
+    place_amenities = relationship("Place", secondary="place_amenity")
