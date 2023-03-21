@@ -162,6 +162,9 @@ class HBNBCommand(cmd.Cmd):
     # command to clear the window
     def do_clear(self, arg):
         system('cls')
+    
+    def help_clear(self):
+        print("Clear command to clear the screen")
 
     # commands to handle BaseModel
 
@@ -363,7 +366,13 @@ class HBNBCommand(cmd.Cmd):
         # If it reaches here, Print all objects of a specific class
         print(len([str(obj) for key, obj in all_objects.items()
                    if key.split('.')[0] == cls]))
-
+        
+    def help_count(self):
+        print("Count command to count the number of instances of a class")
+        print("Usage: <class name>.count()")
+        print("Example: User.count()")
+        
+    
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
