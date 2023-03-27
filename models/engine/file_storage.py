@@ -34,7 +34,6 @@ class FileStorage:
         if cls is not None:
 
             obj = {}
-            print("================file storage=================")
             print(FileStorage.__objects.items())
             for key, val in FileStorage.__objects.items():
                 if cls.__name__ in key:
@@ -86,3 +85,6 @@ class FileStorage:
                     del FileStorage.__objects[key]
                     print("Deleted: {}".format(key))
                     self.save()
+                    
+    def close(self):
+        self.reload()
